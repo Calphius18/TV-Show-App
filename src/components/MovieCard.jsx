@@ -24,9 +24,7 @@ const MovieCard = ({ movie: { title, poster_path, release_date, vote_average, or
                 <p className="year">{release_date ? new Date(release_date).getFullYear() : "N/A"}</p>
 
             </div>
-            {/* <p className='text-gray-400'>{release_date}</p>
-            <p className='text-yellow-500'>{vote_average}</p>
-            <p className='text-gray-400'>{original_language}</p> */}
+            
         </div>
         
     </div>
