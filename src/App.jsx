@@ -4,6 +4,7 @@ import Spinner from './components/Spinner.jsx'
 import TVShowCard from './components/TVShowCard.jsx'
 import { useDebounce } from 'react-use'
 import { updateSearchCount, getTrendingTVShows } from './appwrite.js'
+import { Analytics } from "@vercel/analytics/react";
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -132,6 +133,8 @@ const App = () => {
 
       </div>
 
+
+      <Analytics />
     </main>
   )
 }
