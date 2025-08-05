@@ -1,4 +1,4 @@
-# 🎬 Movie App — React + Vite + Appwrite + TMDb
+# 🎬 TV Show App — React + Vite + Appwrite + TMDb
 
 A dynamic and responsive **Movie App** built with **React**, **JavaScript**, and **Vite**, using **Appwrite** as the backend database and **TMDb (The Movie Database)** for movie data.
 
@@ -7,10 +7,9 @@ A dynamic and responsive **Movie App** built with **React**, **JavaScript**, and
 ## 🧰 Features
 
 - ⚛️ Fast and modern React front-end with Vite  
-- 🎞️ Fetches real movie data from [TMDb API](https://www.themoviedb.org/documentation/api)  
-- 🗃️ Uses [Appwrite](https://appwrite.io) to manage saved movies and user data  
-- 🔍 Search, browse, and view movie details  
-- 💾 Save favorites or watchlists using Appwrite database  
+- 🎞️ Fetches real TV show data from [TMDb API](https://www.themoviedb.org/documentation/api)  
+- 🗃️ Uses [Appwrite](https://appwrite.io) to manage saved Tv show and user data  
+- 🔍 Search, browse, and view movie details    
 - 🎨 Clean UI and modular project structure  
 
 ---
@@ -52,10 +51,6 @@ The app will be available at `http://localhost:5173/`.
 2. **Appwrite Database**
    - Stores user-specific data like favorite or saved movies.
    - Each movie entry can be saved in a collection using a unique user ID or session.
-
-3. **Optional Authentication (Appwrite Auth)**
-   - You can enable user login/signup to associate watchlists or favorites with specific users.
-   - Appwrite supports Email/Password, OAuth2, Anonymous, and more.
 
 4. **Permissions & Access Control**
    - Appwrite’s permission model lets you control who can read/write specific documents.
