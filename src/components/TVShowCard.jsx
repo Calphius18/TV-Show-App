@@ -1,15 +1,15 @@
 import React from 'react'
 
-const MovieCard = ({ movie: { title, poster_path, release_date, vote_average, original_language } }) => {
+const showCard = ({ show: { name, poster_path, first_air_date, vote_average, original_language } }) => {
   return (
-    <div className='movie-card'>
+    <div className='show-card'>
         <img 
         src={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : "/no-movie.png"} 
-        alt={title} 
+        alt={name} 
         />
         
         <div className="mt-4">
-            <h3 className='text-white'>{title}</h3>
+            <h3 className='text-white'>{name}</h3>
 
             <div className="content">
                 <div className="rating">
@@ -21,7 +21,7 @@ const MovieCard = ({ movie: { title, poster_path, release_date, vote_average, or
                 <p className="lang"> {original_language}</p>
 
                 <span>•</span>
-                <p className="year">{release_date ? new Date(release_date).getFullYear() : "N/A"}</p>
+                <p className="year">{first_air_date ? new Date(first_air_date).getFullYear() : "N/A"}</p>
 
             </div>
             
@@ -31,4 +31,4 @@ const MovieCard = ({ movie: { title, poster_path, release_date, vote_average, or
   )
 }
 
-export default MovieCard
+export default showCard

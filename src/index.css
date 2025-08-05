@@ -57,7 +57,7 @@
     @apply px-5 py-12 xs:p-10 max-w-7xl mx-auto flex flex-col relative z-10;
   }
 
-  .trending-movies {
+  .trending-tvshows {
     @apply mt-20;
 
     & ul {
@@ -93,7 +93,7 @@
     }
   }
 
-  .all-movies {
+  .all-tvshows {
     @apply space-y-9;
 
     & ul {
@@ -101,7 +101,7 @@
     }
   }
 
-  .movie-card {
+  .show-card {
     @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10;
 
     & img {

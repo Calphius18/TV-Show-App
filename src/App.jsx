@@ -1,9 +1,9 @@
 import  { useEffect, useState } from 'react'
 import Search from './components/Search.jsx'
 import Spinner from './components/Spinner.jsx'
-import MovieCard from './components/MovieCard.jsx'
+import TVShowCard from './components/TVShowCard.jsx'
 import { useDebounce } from 'react-use'
-import { updateSearchCount, getTrendingMovies } from './appwrite.js'
+import { updateSearchCount, getTrendingTVShows } from './appwrite.js'
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -20,8 +20,8 @@ const App = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [movieList, setMovieList] = useState([]);
-  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [TVShowList, setTvShowList] = useState([]);
+  const [trendingTVShows, setTrendingTVShows] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
@@ -30,12 +30,12 @@ const App = () => {
   }, 1000, [searchTerm]);
 
 
-  const fetchMovies = async (query = "") => {
+  const fetchTvShow = async (query = "") => {
     setIsLoading(true);
     setErrorMessage("");
 
     try {
-      const endpoint = query ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}` : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = query ? `${API_BASE_URL}/search/tv?query=${encodeURIComponent(query)}` : `${API_BASE_URL}/discover/tv?sort_by=popularity.desc`;
 
       const response = await fetch(endpoint, API_OPTIONS);
 
@@ -46,39 +46,39 @@ const App = () => {
       const data = await response.json();
       
       if(data.Response === 'False') {
-        setErrorMessage(data.Error || "Failed to fetch movies")
-        setMovieList([]);
+        setErrorMessage(data.Error || "Failed to fetch shows")
+        setTvShowList([]);
         return;
       } 
-      setMovieList(data.results || []);
+      setTvShowList(data.results || []);
 
       if(query && data.results.length > 0) {
         await updateSearchCount(query, data.results[0]);
       } 
 
     } catch (error) {
-      console.error(`Error fetching movies: ${error}`);
-      setErrorMessage("Error fetching movies. Please try again later.");
+      console.error(`Error fetching shows: ${error}`);
+      setErrorMessage("Error fetching shows. Please try again later.");
     } finally {
       setIsLoading(false);
     }
   }
 
-  const showTrendingMovies = async () => {
+  const showTrendingTVShows = async () => {
     try {
-      const movies = await getTrendingMovies();
-      setTrendingMovies(movies);
+      const shows = await getTrendingTVShows();
+      setTrendingTVShows(shows);
     } catch (error) {
-      console.error(`Error fetching trending movies: ${error}`);
+      console.error(`Error fetching trending shows: ${error}`);
     }
   }
 
   useEffect(() => {
-    fetchMovies(debouncedSearchTerm);
+    fetchTvShow(debouncedSearchTerm);
   }, [debouncedSearchTerm]);
 
   useEffect(() => {
-    showTrendingMovies();
+    showTrendingTVShows();
   }, []);
 
   return (
@@ -89,38 +89,38 @@ const App = () => {
         <div className="wrapper">
       
         <header>
-          <img src="./hero.png" alt="Hero Banner" />          
-          <h1>Find Your <span className='text-gradient'>Movies</span></h1>
+          <img src="./banner 1.jpeg" alt="Hero Banner" />          
+          <h1>Find Your <span className='text-gradient'>TV Shows</span></h1>
 
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
         </header>
 
-        {trendingMovies.length > 0 && (
-          <section className="trending-movies">
-            <h2>Trending Movies</h2>
+        {trendingTVShows.length > 0 && (
+          <section className="trending-tvshows">
+            <h2>Trending TV Shows</h2>
             <ul>
-              {trendingMovies.map((movie, index) => (
-                <li key={movie.$id}>
+              {trendingTVShows.map((show, index) => (
+                <li key={show.$id}>
                   <p>{index + 1}</p>
-                   <img src={movie.poster_url} alt={movie.title} />
+                   <img src={show.poster_url} alt={show.title} />
                 </li>
               ))}
             </ul>
           </section>
         )}
 
-        <section className="all-movies">
-          <h2>All Movies</h2>
+        <section className="all-tvshows">
+          <h2>All TV Shows</h2>
 
           {isLoading ? (<Spinner />) : errorMessage ? (<p className='text-red-500'>{errorMessage}</p>)
           :  (
             <ul>
-              {movieList.map((movie) => {
+              {TVShowList.map((show) => {
                 return (
-                 <MovieCard 
-                   key={movie.id}
-                   movie={movie}
+                 <TVShowCard 
+                   key={show.id}
+                   show={show}
                  />
                 )
               })}

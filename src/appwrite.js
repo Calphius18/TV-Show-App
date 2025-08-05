@@ -10,7 +10,7 @@ const client = new Client()
 
 const database = new Databases(client);
 
-export const updateSearchCount = async (searchTerm, movie) => {
+export const updateSearchCount = async (searchTerm, show) => {
   
  try {
   const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
@@ -28,8 +28,8 @@ export const updateSearchCount = async (searchTerm, movie) => {
    await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
     searchTerm,
     count: 1,
-    movie_id: movie.id,
-    poster_url: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+    show_id: show.id,
+    poster_url: `https://image.tmdb.org/t/p/w500${show.poster_path}`,
    })
   }
  } catch (error) {
@@ -37,7 +37,7 @@ export const updateSearchCount = async (searchTerm, movie) => {
  }
 }
 
-export const getTrendingMovies = async () => {
+export const getTrendingTVShows = async () => {
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
       Query.limit(5),
